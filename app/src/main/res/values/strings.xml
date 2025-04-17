@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Final_Project</string>
+    <string name="fab_description">Create new Group</string>
+    <string name="fab_description2">Join existing Group</string>
+    <string name="fab_description3">Create Flashcards</string>
+    <string name="fab_description4">View Flashcards</string>
+    <string name="fab_description5">Create Quiz</string>
+    <string name="fab_description6">View Quiz</string>
+</resources>
