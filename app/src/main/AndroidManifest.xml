@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Final_Project"
         tools:targetApi="31">
         <activity
+            android:name=".TakeQuizActivity"
+            android:exported="false" />
+        <activity
             android:name=".viewQuizActivity"
             android:exported="false" />
         <activity

@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleName7" />
 
     <ListView
-        android:id="@+id/flashcardList"
+        android:id="@+id/quizAnswersList"
         android:layout_width="317dp"
         android:layout_height="445dp"
         android:layout_marginStart="45dp"

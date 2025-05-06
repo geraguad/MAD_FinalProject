@@ -30,7 +30,7 @@
         android:layout_width="247dp"
         android:layout_height="59dp"
         android:layout_marginStart="101dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="Enter Group Code:"
@@ -61,25 +61,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="192dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="193dp"
         android:text="OR"
         android:textColor="#F3FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupNameInput2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/searchGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="122dp"
+        android:layout_marginTop="49dp"
         android:layout_marginEnd="161dp"
         android:backgroundTint="#2196F3"
         android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupCodeInput" />
+
+    <ListView
+        android:id="@+id/selectGroupList"
+        android:layout_width="310dp"
+        android:layout_height="255dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="45dp"
+        android:background="#2196F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchGroupButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,14 +2,34 @@ package com.example.final_project
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.io.File
+import java.io.FileInputStream
+import java.util.Scanner
+
+data class WordDefinition(val word: String, val definition: String);
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var myAdapter : ArrayAdapter<String>; // connect from data to gui
+    private var dataDefList = ArrayList<String>(); // data
+    private var wordDefinition = mutableListOf<WordDefinition>();
+
+    private lateinit var listView: ListView
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private lateinit var adapter: ArrayAdapter<String>
+    private val joinedGroups = mutableListOf<String>()
+
+
     private fun createGroupActivity() {
         val intent = Intent(this, createGroupActivity::class.java)
         startActivity(intent)
@@ -40,6 +60,33 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun fetchJoinedGroups() {
+        val userId = auth.currentUser?.uid ?: return
+
+        db.collection("groups")
+            .get()
+            .addOnSuccessListener { result ->
+                joinedGroups.clear()
+
+                for (doc in result) {
+                    val groupCode = doc.id
+                    val groupName = doc.getString("name") ?: "Unnamed Group"
+                    val groupDesc = doc.getString("description") ?: ""
+
+                    db.collection("groups").document(groupCode)
+                        .collection("members")
+                        .document(userId)
+                        .get()
+                        .addOnSuccessListener { memberDoc ->
+                            if (memberDoc.exists()) {
+                                joinedGroups.add("$groupName\n$groupDesc\nCode: $groupCode")
+                                adapter.notifyDataSetChanged()
+                            }
+                        }
+                }
+            }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,6 +96,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        listView = findViewById(R.id.joinedGroupsList)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, joinedGroups)
+        listView.adapter = adapter
+
+        fetchJoinedGroups()
 
         val cgbutton = findViewById<FloatingActionButton>(R.id.createGroupButton)
         cgbutton.setOnClickListener {
@@ -79,5 +132,8 @@ class MainActivity : AppCompatActivity() {
         vqbutton.setOnClickListener {
             viewQuizActivity()
         }
+
+
+
     }
 }

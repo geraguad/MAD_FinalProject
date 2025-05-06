@@ -266,4 +266,16 @@
         app:layout_constraintTop_toBottomOf="@+id/flashcardText"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <ListView
+        android:id="@+id/joinedGroupsList"
+        android:layout_width="253dp"
+        android:layout_height="389dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="33dp"
+        android:background="#2196F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flashcardText"
+        app:layout_constraintTop_toBottomOf="@+id/titleName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
