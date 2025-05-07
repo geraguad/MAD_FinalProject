@@ -54,8 +54,8 @@ class createFlashcardsActivity : AppCompatActivity() {
 
         // Save flashcards to internal storage
         saveButton.setOnClickListener {
-            val quizName = flashNameInput.text.toString().trim()
-            if (quizName.isEmpty()) {
+            val flashcardSetName = flashNameInput.text.toString().trim()
+            if (flashcardSetName.isEmpty()) {
                 Toast.makeText(this, "Please enter a quiz name", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -65,7 +65,7 @@ class createFlashcardsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val fileName = "$quizName.csv"
+            val fileName = "$flashcardSetName.csv"
             val user = FirebaseAuth.getInstance().currentUser
             if (user == null) {
                 Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()

@@ -39,6 +39,7 @@ class createGroupActivity : AppCompatActivity() {
         createButton = findViewById(R.id.createGroupButton2)
 
         createButton.setOnClickListener {
+            //grabs user input
             val name = groupNameInput.text.toString().trim()
             val desc = groupDescInput.text.toString().trim()
 
@@ -50,6 +51,7 @@ class createGroupActivity : AppCompatActivity() {
             val groupCode = generateUniqueCode()
             val userId = auth.currentUser?.uid ?: return@setOnClickListener
 
+            //store group in firestore with information
             val groupData = hashMapOf(
                 "name" to name,
                 "description" to desc,
@@ -57,8 +59,10 @@ class createGroupActivity : AppCompatActivity() {
                 "code" to groupCode
             )
 
+            //creates map of group
             db.collection("groups").document(groupCode).set(groupData)
                 .addOnSuccessListener {
+                    //adds user to group under 'member'
                     val memberData = hashMapOf("userId" to userId)
 
                     db.collection("groups").document(groupCode)
