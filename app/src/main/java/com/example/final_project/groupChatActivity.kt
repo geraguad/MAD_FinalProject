@@ -62,6 +62,7 @@ class groupChatActivity : AppCompatActivity() {
         listenForMessages()
     }
 
+    //sends message to firestore
     private fun sendMessage() {
         val text = messageInput.text.toString().trim()
         val currentUser = auth.currentUser
@@ -87,6 +88,7 @@ class groupChatActivity : AppCompatActivity() {
         }
     }
 
+    //updates messages in real time
     private fun listenForMessages() {
         db.collection("groups")
             .document(groupId!!)
@@ -98,6 +100,7 @@ class groupChatActivity : AppCompatActivity() {
                     return@addSnapshotListener
                 }
 
+                //update UI and goes to most recent message
                 messages.clear()
                 messages.addAll(snapshot.toObjects(Message::class.java))
                 adapter.notifyDataSetChanged()

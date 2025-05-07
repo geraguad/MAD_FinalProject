@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Methods to navigate to other activities (create/join flashcards, quizzes, etc.)
+    // Methods to navigate to other activities (create/join flashcards and quizzes)
     private fun createGroupActivity() {
         val intent = Intent(this, createGroupActivity::class.java)
         startActivity(intent)

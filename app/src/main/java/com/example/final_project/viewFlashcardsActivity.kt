@@ -29,6 +29,7 @@ class viewFlashcardsActivity : AppCompatActivity() {
 
         flashcardList = findViewById(R.id.flashcardList)
 
+        //user authentication
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
             Toast.makeText(this, "Please log in first.", Toast.LENGTH_SHORT).show()
@@ -36,13 +37,15 @@ class viewFlashcardsActivity : AppCompatActivity() {
             return
         }
 
+        // goes to where flashcards are
         val userDir = File(filesDir, user.uid)
         if (!userDir.exists()) {
             Toast.makeText(this, "No flashcards found.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        fileNames = userDir.listFiles()?.filter { it.extension == "csv" || it.extension == "fcs" }
+        //lists files in alphabetical order
+        fileNames = userDir.listFiles()?.filter { it.extension == "csv" }
             ?.map { it.name }
             ?.sorted()
             ?: emptyList()
@@ -55,6 +58,7 @@ class viewFlashcardsActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, fileNames)
         flashcardList.adapter = adapter
 
+        //listens for item selected and passes it to intent
         flashcardList.setOnItemClickListener { _, _, position, _ ->
             val selectedFile = fileNames[position]
             val intent = Intent(this, displayFlashcardsActivity::class.java)

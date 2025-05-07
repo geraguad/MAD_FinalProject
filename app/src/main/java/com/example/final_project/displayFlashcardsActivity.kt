@@ -33,6 +33,7 @@ class displayFlashcardsActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.nextFlashcardArrow)
         previousButton = findViewById(R.id.previousFlashcardArrow)
 
+        // flashcard set from intent
         val fileName = intent.getStringExtra("fileName")
         val user = FirebaseAuth.getInstance().currentUser
 
@@ -42,6 +43,7 @@ class displayFlashcardsActivity : AppCompatActivity() {
             return
         }
 
+        //ensures flashcards are user-specific
         val file = File(File(filesDir, user.uid), fileName)
         if (!file.exists()) {
             Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show()
@@ -63,6 +65,7 @@ class displayFlashcardsActivity : AppCompatActivity() {
 
         showCard()
 
+        //filps card
         cardText.setOnClickListener {
             showingQuestion = !showingQuestion
             showCard()
@@ -85,6 +88,7 @@ class displayFlashcardsActivity : AppCompatActivity() {
         }
     }
 
+    //shows answer or question
     private fun showCard() {
         val (question, answer) = flashcards[currentIndex]
         cardText.text = if (showingQuestion) question else answer
